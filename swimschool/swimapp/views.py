@@ -45,15 +45,87 @@ class BookkeepingView(generics.ListCreateAPIView):
     throttle_classes = [AnonRateThrottle, UserRateThrottle]
     permission_classes = [
         permissions.IsAuthenticated,
-        IsBookkeeper or IsManager or permissions.IsAdminUser,
+        IsBookkeeper | IsManager | permissions.IsAdminUser,
     ]
 
 
-class LessonCreateView(generics.CreateAPIView):
+class LessonView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Calendar.objects.all()
     serializer_class = CalendarSerializer
     throttle_classes = [AnonRateThrottle, UserRateThrottle]
     permission_classes = [
         permissions.IsAuthenticated,
-        IsBookkeeper or IsManager or permissions.IsAdminUser,
+        IsInstructor | IsManager | permissions.IsAdminUser,
+    ]
+
+
+class GroupView(generics.ListCreateAPIView):
+    queryset = Group.objects.all()
+    serializer_class = GroupSerializer
+    throttle_classes = [AnonRateThrottle, UserRateThrottle]
+    permission_classes = [
+        permissions.IsAuthenticated,
+        IsInstructor | IsManager | permissions.IsAdminUser,
+    ]
+
+
+class SingleGroupView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Group.objects.all()
+    serializer_class = GroupSerializer
+    throttle_classes = [AnonRateThrottle, UserRateThrottle]
+    permission_classes = [
+        permissions.IsAuthenticated,
+        IsInstructor | IsManager | permissions.IsAdminUser,
+    ]
+
+
+class InstructorView(generics.ListCreateAPIView):
+    queryset = User.objects.filter(groups__name="Instructor")
+    serializer_class = UserSerializer
+    throttle_classes = [AnonRateThrottle, UserRateThrottle]
+    permission_classes = [
+        permissions.IsAuthenticated,
+        IsManager | permissions.IsAdminUser,
+    ]
+
+    def perform_create(self, serializer):
+        user = serializer.save()
+        user.set_password(user.password)
+        user.groups.add(Group.objects.get(name="Instructor"))
+        user.save()
+
+
+class SingleInstructorView(generics.DestroyAPIView):
+    queryset = User.objects.filter(groups__name="Instructor")
+    serializer_class = UserSerializer
+    throttle_classes = [AnonRateThrottle, UserRateThrottle]
+    permission_classes = [
+        permissions.IsAuthenticated,
+        IsManager | permissions.IsAdminUser,
+    ]
+
+
+class BookkeeperView(generics.ListCreateAPIView):
+    queryset = User.objects.filter(groups__name="Bookkeeper")
+    serializer_class = UserSerializer
+    throttle_classes = [AnonRateThrottle, UserRateThrottle]
+    permission_classes = [
+        permissions.IsAuthenticated,
+        IsManager | permissions.IsAdminUser,
+    ]
+
+    def perform_create(self, serializer):
+        user = serializer.save()
+        user.set_password(user.password)
+        user.groups.add(Group.objects.get(name="Bookkeeper"))
+        user.save()
+
+
+class SingleBookkeeperView(generics.DestroyAPIView):
+    queryset = User.objects.filter(groups__name="Bookkeeper")
+    serializer_class = UserSerializer
+    throttle_classes = [AnonRateThrottle, UserRateThrottle]
+    permission_classes = [
+        permissions.IsAuthenticated,
+        IsManager | permissions.IsAdminUser,
     ]
