@@ -40,6 +40,12 @@ class CalendarView(generics.ListAPIView):
     throttle_classes = [AnonRateThrottle, UserRateThrottle]
 
 
+class LessonCreateView(generics.CreateAPIView):
+    queryset = Calendar.objects.all()
+    serializer_class = CalendarSerializer
+    throttle_classes = [AnonRateThrottle, UserRateThrottle]
+
+
 class BookkeepingView(generics.ListCreateAPIView):
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer

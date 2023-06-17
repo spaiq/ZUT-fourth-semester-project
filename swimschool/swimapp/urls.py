@@ -5,6 +5,7 @@ urlpatterns = [
     path("", index, name="index"),
     path("about/", about, name="about"),
     path("calendar/", CalendarView.as_view(), name="calendar"),
+    path("calendar/create/", LessonCreateView.as_view()),
     path("calendar/<int:pk>", LessonView.as_view()),
     path("contact/", contact, name="contact"),
     path("faq/", faq, name="faq"),
