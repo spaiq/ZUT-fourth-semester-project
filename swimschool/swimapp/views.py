@@ -6,6 +6,7 @@ from rest_framework.throttling import UserRateThrottle, AnonRateThrottle
 from .models import *
 from .serializers import *
 from .permissions import IsManager, IsInstructor, IsBookkeeper
+from django.contrib.auth import models
 
 
 @throttle_classes([AnonRateThrottle, UserRateThrottle])
@@ -60,13 +61,21 @@ class LessonView(generics.RetrieveUpdateDestroyAPIView):
 
 
 class GroupView(generics.ListCreateAPIView):
-    queryset = Group.objects.all()
     serializer_class = GroupSerializer
     throttle_classes = [AnonRateThrottle, UserRateThrottle]
     permission_classes = [
         permissions.IsAuthenticated,
         IsInstructor | IsManager | permissions.IsAdminUser,
     ]
+
+    def get_queryset(self):
+        user = self.request.user
+        group = models.Group.objects.filter(user=user).first()
+
+        if group and group.name == "Manager":
+            return Group.objects.all()
+
+        return Group.objects.filter(user=self.request.user)
 
 
 class SingleGroupView(generics.RetrieveUpdateDestroyAPIView):
