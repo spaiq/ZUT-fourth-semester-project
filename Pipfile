@@ -8,6 +8,7 @@ django = "*"
 djangorestframework = "*"
 djoser = "*"
 fontawesomefree = "*"
+django-debug-toolbar = "*"
 
 [dev-packages]
 
