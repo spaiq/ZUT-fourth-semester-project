@@ -170,3 +170,124 @@ main .courses .container .card .card-content h2{
 main .courses .container .card .card-content p{
     font-size: 0.9rem;
 }
+
+.calendar{
+    width: 100%;
+    min-height: 540px;
+    display: grid;
+    place-items: center;
+    background: #F0F0F0;
+}
+
+.calendar .container{
+    max-width: 1200px;
+    width: 100%;
+    margin-bottom: 3rem;
+}
+.calendar .container h1{
+    text-align: center;
+    margin: 3rem 0;
+}
+
+.lesson-plan {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    place-items: center;
+    gap: 3rem;
+}
+
+.day {
+    max-width: 300px;
+    width: 100%;
+    min-height: 210px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    padding: 30px;
+    text-align: center;
+}
+
+.day .lesson {
+    margin-bottom: 10px;
+}
+
+.lesson-instructor {
+    margin-bottom: 5px;
+}
+
+.lesson-info {
+    color: #888;
+    font-size: 14px;
+}
+
+.manage{
+    height: 100vh;
+    width: 100%;
+    display: grid;
+    place-items: center;
+}
+
+.manage .back-home{
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.manage h1 a{
+    text-decoration: none;
+    color: #333333;
+}
+
+.manage a{
+    text-decoration: none;
+    color: #fff;
+}
+
+.manage a:hover{
+    color: #0148BC;
+}
+
+.manage-menu h2{
+    color: #fff;
+}
+
+.manage ul{
+    list-style: none;
+    text-decoration: none;
+}
+
+.manage ul li{
+    font-size: 1.1rem;
+}
+
+.manage .manage-menu{
+    background: rgba(28, 157, 236, 0.9);
+    max-width: 500px;
+    width: 100%;
+    padding: 2rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    border-radius: 24px;
+}
+
+.manage .manage-menu h2{
+    margin-bottom: 1rem;
+}
+
+.login{
+    height: 100vh;
+    width: 100%;
+    display: grid;
+    place-items: center;
+}
+
+.login-form{
+    border: 5px solid #1c9dec;
+    width: max-content;
+    height: max-content;
+    padding: 2rem;
+    border-radius: 24px;
+}
+
+.login-form h1{
+    margin-bottom: 1rem;
+}

@@ -3,10 +3,15 @@ from django.views.generic import TemplateView
 from rest_framework import generics, permissions, status
 from rest_framework.decorators import throttle_classes
 from rest_framework.throttling import UserRateThrottle, AnonRateThrottle
+from django.contrib.auth.decorators import login_required
 from .models import *
 from .serializers import *
 from .permissions import IsManager, IsInstructor, IsBookkeeper
 from django.contrib.auth import models
+import requests
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import AuthenticationForm
 
 
 @throttle_classes([AnonRateThrottle, UserRateThrottle])
@@ -30,13 +35,42 @@ def contact(request):
 
 
 @throttle_classes([AnonRateThrottle, UserRateThrottle])
+@login_required
+def manage(request):
+    return render(request, "manage.html", {})
+
+
+@throttle_classes([AnonRateThrottle, UserRateThrottle])
 def instructors(request):
     return render(request, "instructors.html", {})
 
 
 @throttle_classes([AnonRateThrottle, UserRateThrottle])
 def calendar(request):
-    return render(request, "calendar.html", {})
+    response = requests.get('http://127.0.0.1:8000/calendar/endpoint')
+    data = response.json()
+    lessons = data["results"]
+    return render(request, "calendar.html", {'lessons': lessons})
+
+
+def login_view(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('manage')
+    else:
+        form = AuthenticationForm()
+    return render(request, 'accounts/login.html', {'form': form})
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('/')
 
 
 class CalendarView(generics.ListAPIView):
