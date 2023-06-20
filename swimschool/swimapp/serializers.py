@@ -84,15 +84,16 @@ class SingleGroupSerializer(serializers.ModelSerializer):
 
 class CalendarSerializer(serializers.ModelSerializer):
     group = serializers.SlugRelatedField(read_only=True, slug_field="level")
-    instructor = serializers.StringRelatedField(
-        read_only=True, source="group.instructor.__str__"
-    )
+    instructor = serializers.SerializerMethodField()
     start_date = serializers.DateTimeField(format="%Y-%m-%d %H:%M")
     end_date = serializers.DateTimeField(format="%Y-%m-%d %H:%M")
 
     class Meta:
         model = Lesson
         fields = "__all__"
+
+    def get_instructor(self, obj):
+        return obj.instructor.get_full_name()
 
 
 class LessonSerializer(serializers.ModelSerializer):
