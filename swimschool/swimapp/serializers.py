@@ -28,8 +28,6 @@ class AvailabilitySerializer(serializers.ModelSerializer):
 
 
 class InstructorSerializer(serializers.ModelSerializer):
-    availability = AvailabilitySerializer()
-
     class Meta:
         model = Instructor
         fields = "__all__"
@@ -42,8 +40,8 @@ class SwimmerSerializer(serializers.ModelSerializer):
 
 
 class GroupSerializer(serializers.ModelSerializer):
-    instructor = InstructorSerializer()
-    swimmer = SwimmerSerializer()
+    # instructor = InstructorSerializer()
+    # swimmer = SwimmerSerializer()
 
     class Meta:
         model = Group
@@ -51,33 +49,42 @@ class GroupSerializer(serializers.ModelSerializer):
 
 
 class CalendarSerializer(serializers.ModelSerializer):
-    group = serializers.PrimaryKeyRelatedField(
-        queryset=Group.objects.all(), write_only=True
-    )
-    swimmer = serializers.PrimaryKeyRelatedField(
-        queryset=Swimmer.objects.all(), write_only=True
-    )
-    instructor = serializers.PrimaryKeyRelatedField(
-        queryset=Instructor.objects.none(), write_only=True
-    )
+    # group = serializers.PrimaryKeyRelatedField(
+    #     queryset=Group.objects.all(), write_only=True
+    # )
+    # swimmer = serializers.PrimaryKeyRelatedField(
+    #     queryset=Swimmer.objects.all(), write_only=True
+    # )
+    # instructor = serializers.PrimaryKeyRelatedField(
+    #     queryset=Instructor.objects.none(), write_only=True
+    # )
 
+    # class Meta:
+    #     model = Lesson
+    #     fields = "__all__"
+
+    # def validate_instructor(self, value):
+    #     group = self.initial_data.get("group")
+    #     start_date = self.initial_data.get("start_date")
+    #     end_date = self.initial_data.get("end_date")
+
+    #     # Retrieve instructors with availability on the specific day
+    #     instructors = Instructor.objects.filter(
+    #         availability__date__range=[start_date, end_date]
+    #     ).distinct()
+
+    #     if value not in instructors:
+    #         raise serializers.ValidationError("Invalid instructor selection.")
+    #     return value
+    group = serializers.SlugRelatedField(read_only=True, slug_field='level')
+    instructor = serializers.StringRelatedField(read_only=True, source="group.instructor.__str__")
+    start_date = serializers.DateTimeField(format="%Y-%m-%d %H:%M")
+    end_date = serializers.DateTimeField(format="%Y-%m-%d %H:%M")
+    
     class Meta:
-        model = Calendar
+        model = Lesson
         fields = "__all__"
 
-    def validate_instructor(self, value):
-        group = self.initial_data.get("group")
-        start_date = self.initial_data.get("start_date")
-        end_date = self.initial_data.get("end_date")
-
-        # Retrieve instructors with availability on the specific day
-        instructors = Instructor.objects.filter(
-            availability__date__range=[start_date, end_date]
-        ).distinct()
-
-        if value not in instructors:
-            raise serializers.ValidationError("Invalid instructor selection.")
-        return value
 
 
 class PaymentSerializer(serializers.ModelSerializer):

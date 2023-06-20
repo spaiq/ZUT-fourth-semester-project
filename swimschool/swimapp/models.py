@@ -47,7 +47,7 @@ class Group(models.Model):
         )
 
 
-class Calendar(models.Model):
+class Lesson(models.Model):
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
     group = models.ForeignKey(Group, on_delete=models.CASCADE)

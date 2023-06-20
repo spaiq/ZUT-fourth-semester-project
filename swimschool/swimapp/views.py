@@ -33,15 +33,19 @@ def contact(request):
 def instructors(request):
     return render(request, "instructors.html", {})
 
+@throttle_classes([AnonRateThrottle, UserRateThrottle])
+def calendar(request):
+    return render(request, "calendar.html", {})
+
 
 class CalendarView(generics.ListAPIView):
-    queryset = Calendar.objects.all()
+    queryset = Lesson.objects.all()
     serializer_class = CalendarSerializer
     throttle_classes = [AnonRateThrottle, UserRateThrottle]
 
 
 class LessonCreateView(generics.CreateAPIView):
-    queryset = Calendar.objects.all()
+    queryset = Lesson.objects.all()
     serializer_class = CalendarSerializer
     throttle_classes = [AnonRateThrottle, UserRateThrottle]
 
@@ -57,7 +61,7 @@ class BookkeepingView(generics.ListCreateAPIView):
 
 
 class LessonView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Calendar.objects.all()
+    queryset = Lesson.objects.all()
     serializer_class = CalendarSerializer
     throttle_classes = [AnonRateThrottle, UserRateThrottle]
     permission_classes = [
