@@ -33,6 +33,7 @@ def contact(request):
 def instructors(request):
     return render(request, "instructors.html", {})
 
+
 @throttle_classes([AnonRateThrottle, UserRateThrottle])
 def calendar(request):
     return render(request, "calendar.html", {})
@@ -46,11 +47,21 @@ class CalendarView(generics.ListAPIView):
 
 class LessonCreateView(generics.CreateAPIView):
     queryset = Lesson.objects.all()
-    serializer_class = CalendarSerializer
+    serializer_class = LessonSerializer
     throttle_classes = [AnonRateThrottle, UserRateThrottle]
 
 
-class BookkeepingView(generics.ListCreateAPIView):
+class PaymentsView(generics.ListCreateAPIView):
+    queryset = Payment.objects.all()
+    serializer_class = PaymentSerializer
+    throttle_classes = [AnonRateThrottle, UserRateThrottle]
+    permission_classes = [
+        permissions.IsAuthenticated,
+        IsBookkeeper | IsManager | permissions.IsAdminUser,
+    ]
+
+
+class SinglePaymentView(generics.RetrieveDestroyAPIView):
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
     throttle_classes = [AnonRateThrottle, UserRateThrottle]
@@ -90,12 +101,27 @@ class GroupView(generics.ListCreateAPIView):
 
 class SingleGroupView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Group.objects.all()
-    serializer_class = GroupSerializer
+    serializer_class = SingleGroupSerializer
     throttle_classes = [AnonRateThrottle, UserRateThrottle]
     permission_classes = [
         permissions.IsAuthenticated,
         IsInstructor | IsManager | permissions.IsAdminUser,
     ]
+
+    def perform_update(self, serializer):
+        swimmer = serializer.validated_data.get("swimmer_list", [])
+        existing_swimmers = serializer.instance.swimmer.all()
+
+        if swimmer not in existing_swimmers:
+            serializer.instance.swimmer.add(swimmer)
+        else:
+            serializer.instance.swimmer.remove(swimmer)
+
+        serializer.save()
+
+    def perform_destroy(self, instance):
+        instance.swimmer.clear()
+        instance.delete()
 
 
 class InstructorView(generics.ListCreateAPIView):
