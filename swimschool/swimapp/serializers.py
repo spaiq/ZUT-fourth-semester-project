@@ -93,7 +93,7 @@ class CalendarSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
     def get_instructor(self, obj):
-        return obj.instructor.get_full_name()
+        return obj.group.instructor.get_full_name()
 
 
 class LessonSerializer(serializers.ModelSerializer):
