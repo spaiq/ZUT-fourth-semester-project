@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from .models import *
 from .serializers import *
 from .permissions import IsManager, IsInstructor, IsBookkeeper
+from django.utils.decorators import method_decorator
 from django.contrib.auth import models
 import requests
 from django.shortcuts import render, redirect
@@ -47,30 +48,30 @@ def instructors(request):
 
 @throttle_classes([AnonRateThrottle, UserRateThrottle])
 def calendar(request):
-    response = requests.get('http://127.0.0.1:8000/calendar/endpoint')
+    response = requests.get("http://127.0.0.1:8000/calendar/endpoint")
     data = response.json()
     lessons = data["results"]
-    return render(request, "calendar.html", {'lessons': lessons})
+    return render(request, "calendar.html", {"lessons": lessons})
 
 
 def login_view(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
+            username = form.cleaned_data.get("username")
+            password = form.cleaned_data.get("password")
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('manage')
+                return redirect("manage")
     else:
         form = AuthenticationForm()
-    return render(request, 'accounts/login.html', {'form': form})
+    return render(request, "accounts/login.html", {"form": form})
 
 
 def logout_view(request):
     logout(request)
-    return redirect('/')
+    return redirect("/")
 
 
 class CalendarView(generics.ListAPIView):
@@ -79,12 +80,18 @@ class CalendarView(generics.ListAPIView):
     throttle_classes = [AnonRateThrottle, UserRateThrottle]
 
 
+@method_decorator(login_required, name="dispatch")
 class LessonCreateView(generics.CreateAPIView):
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
     throttle_classes = [AnonRateThrottle, UserRateThrottle]
+    permission_classes = [
+        permissions.IsAuthenticated,
+        IsInstructor | IsManager | permissions.IsAdminUser,
+    ]
 
 
+@method_decorator(login_required, name="dispatch")
 class PaymentsView(generics.ListCreateAPIView):
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
@@ -95,6 +102,7 @@ class PaymentsView(generics.ListCreateAPIView):
     ]
 
 
+@method_decorator(login_required, name="dispatch")
 class SinglePaymentView(generics.RetrieveDestroyAPIView):
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
@@ -105,6 +113,7 @@ class SinglePaymentView(generics.RetrieveDestroyAPIView):
     ]
 
 
+@method_decorator(login_required, name="dispatch")
 class LessonView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Lesson.objects.all()
     serializer_class = CalendarSerializer
@@ -115,6 +124,7 @@ class LessonView(generics.RetrieveUpdateDestroyAPIView):
     ]
 
 
+@method_decorator(login_required, name="dispatch")
 class GroupView(generics.ListCreateAPIView):
     serializer_class = GroupSerializer
     throttle_classes = [AnonRateThrottle, UserRateThrottle]
@@ -130,9 +140,10 @@ class GroupView(generics.ListCreateAPIView):
         if group and group.name == "Manager":
             return Group.objects.all()
 
-        return Group.objects.filter(user=self.request.user)
+        return Group.objects.filter(instructor_id=self.request.user)
 
 
+@method_decorator(login_required, name="dispatch")
 class SingleGroupView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Group.objects.all()
     serializer_class = SingleGroupSerializer
@@ -158,6 +169,7 @@ class SingleGroupView(generics.RetrieveUpdateDestroyAPIView):
         instance.delete()
 
 
+@method_decorator(login_required, name="dispatch")
 class InstructorView(generics.ListCreateAPIView):
     queryset = User.objects.filter(groups__name="Instructor")
     serializer_class = UserSerializer
@@ -174,6 +186,7 @@ class InstructorView(generics.ListCreateAPIView):
         user.save()
 
 
+@method_decorator(login_required, name="dispatch")
 class SingleInstructorView(generics.DestroyAPIView):
     queryset = User.objects.filter(groups__name="Instructor")
     serializer_class = UserSerializer
@@ -184,6 +197,7 @@ class SingleInstructorView(generics.DestroyAPIView):
     ]
 
 
+@method_decorator(login_required, name="dispatch")
 class BookkeeperView(generics.ListCreateAPIView):
     queryset = User.objects.filter(groups__name="Bookkeeper")
     serializer_class = UserSerializer
@@ -200,6 +214,7 @@ class BookkeeperView(generics.ListCreateAPIView):
         user.save()
 
 
+@method_decorator(login_required, name="dispatch")
 class SingleBookkeeperView(generics.DestroyAPIView):
     queryset = User.objects.filter(groups__name="Bookkeeper")
     serializer_class = UserSerializer
