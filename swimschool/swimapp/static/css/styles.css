@@ -291,3 +291,92 @@ main .courses .container .card .card-content p{
 .login-form h1{
     margin-bottom: 1rem;
 }
+
+.back{
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    color: red;
+}
+
+.back a{
+    text-decoration: none;
+    color: #333;
+}
+
+.back a:hover{
+    color: #0148BC;
+}
+
+
+.calendar-edit{
+    width: 100%;
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    background: #F0F0F0;
+}
+
+.calendar-edit .container{
+    max-width: 1200px;
+    width: 100%;
+    margin-bottom: 3rem;
+}
+
+.calendar-edit .container h1{
+    text-align: center;
+    margin: 3rem 0;
+}
+
+.calendar-edit .container .lesson-plan-edit{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    place-items: center;
+    gap: 3rem;
+}
+
+.calendar-edit .container .lesson-plan-edit a{
+    text-decoration: none;
+    color: #333;
+}
+
+.calendar-edit .container .lesson-plan-edit a:hover{
+    color: #0148BC;
+}
+
+
+
+.groups-edit{
+    width: 100%;
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    background: #F0F0F0;
+}
+
+.groups-edit .container{
+    max-width: 1200px;
+    width: 100%;
+    margin-bottom: 3rem;
+}
+
+.groups-edit .container h1{
+    text-align: center;
+    margin: 3rem 0;
+}
+
+.groups-edit .container .groups-card-edit{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    place-items: center;
+    gap: 3rem;
+}
+
+.groups-edit .container .groups-card-edit a{
+    text-decoration: none;
+    color: #333;
+}
+
+.groups-edit .container .groups-card-edit a:hover{
+    color: #0148BC;
+}

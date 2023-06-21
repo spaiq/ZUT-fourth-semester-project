@@ -3,12 +3,8 @@
 <html lang="pl-PL">
     <head>
         <meta charset="UTF-8" />
-        <title>SwimSchool - Delete lesson</title>
-        <link
-            rel="stylesheet"
-            type="text/css"
-            href="{% static 'css/styles.css' %}"
-        />
+        <title>SwimSchool - Lesson</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}" />
         <link
             href="{% static 'fontawesomefree/css/fontawesome.css' %}"
             rel="stylesheet"
@@ -32,11 +28,10 @@
         />
     </head>
     <body>
-        {{lessons}}
-        <div class="calendar">
+        <div class="calendar-edit">
             <div class="container">
-                <h1>Którą grupę chcesz usunąć?</h1>
-                <div class="lesson-plan">
+                <h1>Którą grupę chcesz edytować/usunąć?</h1>
+                <div class="lesson-plan-edit">
                     {% for lesson in lessons %}
                     <a href="/manage/calendar/{{lesson.id}}">
                         <div class="day">
@@ -58,5 +53,8 @@
                 </div>
             </div>
         </div>
+        <h2 class="back">
+            <a href="/manage">Back</a>
+        </h2>
     </body>
 </html>

@@ -32,11 +32,12 @@
         />
     </head>
     <body>
-        {{groups}}
-        <div class="calendar">
+        <div class="groups-edit">
             <div class="container">
-                <h1>Którą grupę chcesz usunąć?</h1>
-                <div class="groups">
+                <div class="add-group">
+                </div>
+                <h1>Którą grupę chcesz dodać/wyświetlić/edytować/usunąć?</h1>
+                <div class="groups-card-edit">
                     {% for group in groups %}
                     <a href="/manage/groups/{{group.id}}">
                         <div class="day">
@@ -59,5 +60,8 @@
                 </div>
             </div>
         </div>
+        <h2 class="back">
+            <a href="/manage">Back</a>
+        </h2>
     </body>
 </html>
