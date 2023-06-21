@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 from django.db import models
 
 
@@ -44,6 +45,12 @@ class Lesson(models.Model):
 
     def __str__(self):
         return str(self.start_date) + " " + str(self.end_date) + " " + self.group.level
+
+    def save(self, *args, **kwargs):
+        if self.start_date and self.end_date:
+            if self.end_date <= self.start_date:
+                raise ValidationError("End date must be after start date.")
+        super().save(*args, **kwargs)
 
 
 class Payment(models.Model):
