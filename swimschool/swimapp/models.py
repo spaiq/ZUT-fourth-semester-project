@@ -25,7 +25,7 @@ class Swimmer(models.Model):
 class Group(models.Model):
     level = models.CharField(max_length=100)
     instructor = models.ForeignKey(User, on_delete=models.CASCADE)
-    swimmer = models.ManyToManyField(Swimmer, blank=True)
+    swimmer = models.ManyToManyField(Swimmer)
 
     def __str__(self):
         return (

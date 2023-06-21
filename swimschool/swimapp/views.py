@@ -10,9 +10,12 @@ from .permissions import IsManager, IsInstructor, IsBookkeeper
 from django.utils.decorators import method_decorator
 from django.contrib.auth import models
 import requests
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
 
 
 @throttle_classes([AnonRateThrottle, UserRateThrottle])
@@ -38,7 +41,16 @@ def contact(request):
 @throttle_classes([AnonRateThrottle, UserRateThrottle])
 @login_required
 def manage(request):
-    return render(request, "manage.html", {})
+    return render(request, "manage/index.html", {})
+
+
+@throttle_classes([AnonRateThrottle, UserRateThrottle])
+@login_required
+def delete_lessons(request):
+    response = requests.get("http://127.0.0.1:8000/calendar/endpoint")
+    data = response.json()
+    lessons = data["results"]
+    return render(request, "manage/delete-lesson.html", {"lessons": lessons})
 
 
 @throttle_classes([AnonRateThrottle, UserRateThrottle])
@@ -53,6 +65,12 @@ def calendar(request):
     lessons = data["results"]
     return render(request, "calendar.html", {"lessons": lessons})
 
+
+@api_view(['DELETE'])
+def delete_lesson(request, pk):
+    model = get_object_or_404(Group, pk=pk)
+    model.delete()
+    return Response('Item deleted!')
 
 def login_view(request):
     if request.method == "POST":

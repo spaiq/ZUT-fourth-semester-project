@@ -10,6 +10,8 @@ urlpatterns = [
     path("calendar/<int:pk>", LessonView.as_view()),
     path("contact/", contact, name="contact"),
     path("manage/", manage, name="manage"),
+    path("manage/delete-lesson", delete_lessons, name="delete lesson"),
+    path("manage/delete-lesson/<int:pk>", delete_lesson, name="delete"),
     path("faq/", faq, name="faq"),
     path("instructors/", instructors, name="instructors"),
     path("payments/", PaymentsView.as_view(), name="payments"),
