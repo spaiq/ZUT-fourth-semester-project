@@ -1,4 +1,6 @@
-*, *::before, *::after {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
 }
 
@@ -12,21 +14,34 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-img, picture, video, canvas, svg {
+img,
+picture,
+video,
+canvas,
+svg {
     display: block;
     max-width: 100%;
 }
 
-input, button, textarea, select {
+input,
+button,
+textarea,
+select {
     font: inherit;
 }
 
-p, h1, h2, h3, h4, h5, h6 {
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     overflow-wrap: break-word;
 }
 
-.authors{
-    background: #0148BC;
+.authors {
+    background: #0148bc;
     padding: 14px 0 12px;
     display: grid;
     place-items: center;
@@ -34,14 +49,14 @@ p, h1, h2, h3, h4, h5, h6 {
     font-size: 0.8rem;
 }
 
-.header-top{
-    background: #0148BC;
+.header-top {
+    background: #0148bc;
     padding: 14px 0 12px;
     display: grid;
     place-items: center;
 }
 
-.header-top .container{
+.header-top .container {
     max-width: 1200px;
     width: 100%;
     display: flex;
@@ -59,25 +74,25 @@ p, h1, h2, h3, h4, h5, h6 {
     gap: 1rem;
 }
 
-.header-top .container p{
+.header-top .container p {
     display: flex;
     align-items: center;
     font-size: 0.9rem;
 }
 
-.header-top .container p i{
+.header-top .container p i {
     color: #fff;
     margin-right: 0.5rem;
 }
 
-.main-header{
+.main-header {
     background: #fff;
     padding: 14px 0 12px;
     display: grid;
     place-items: center;
 }
 
-.main-header .container{
+.main-header .container {
     max-width: 1200px;
     width: 100%;
     display: flex;
@@ -86,27 +101,27 @@ p, h1, h2, h3, h4, h5, h6 {
     color: #333;
 }
 
-.main-header .container .menu ul{
+.main-header .container .menu ul {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.main-header .container .menu ul li{
+.main-header .container .menu ul li {
     list-style-type: none;
     margin-right: 0.8rem;
 }
 
-.main-header .container .menu ul li a{
+.main-header .container .menu ul li a {
     text-decoration: none;
     color: #333;
 }
 
-.main-header .container .menu ul li a:hover{
-    color: #0148BC;
+.main-header .container .menu ul li a:hover {
+    color: #0148bc;
 }
 
-main .single-slide{
+main .single-slide {
     width: 100%;
     height: 650px;
     background-repeat: no-repeat;
@@ -118,26 +133,26 @@ main .single-slide{
     justify-content: center;
 }
 
-main .single-slide .slide-content{
+main .single-slide .slide-content {
     color: #fff;
     text-align: center;
 }
-main .single-slide .slide-content h3{
+main .single-slide .slide-content h3 {
     font-size: 3rem;
 }
-main .single-slide .slide-content h2{
+main .single-slide .slide-content h2 {
     font-size: 2rem;
     font-family: 'Lobster', cursive;
 }
 
-main .courses{
+main .courses {
     width: 100%;
     height: 540px;
     display: grid;
     place-items: center;
 }
 
-main .courses .container{
+main .courses .container {
     max-width: 1200px;
     width: 100%;
 
@@ -146,45 +161,45 @@ main .courses .container{
     place-items: center;
 }
 
-main .courses .container .card{
+main .courses .container .card {
     max-width: 366px;
     width: 100%;
     height: 300px;
-    border: 3px solid #0148BC;
+    border: 3px solid #0148bc;
     color: #1c9dec;
 }
 
-main .courses .container .card .card-icon{
+main .courses .container .card .card-icon {
     text-align: center;
     font-size: 6rem;
 }
 
-main .courses .container .card .card-content{
+main .courses .container .card .card-content {
     padding: 0 1rem 0 1rem;
     text-align: center;
 }
-main .courses .container .card .card-content h2{
-    color: #0148BC;
+main .courses .container .card .card-content h2 {
+    color: #0148bc;
 }
 
-main .courses .container .card .card-content p{
+main .courses .container .card .card-content p {
     font-size: 0.9rem;
 }
 
-.calendar{
+.calendar {
     width: 100%;
     min-height: 540px;
     display: grid;
     place-items: center;
-    background: #F0F0F0;
+    background: #f0f0f0;
 }
 
-.calendar .container{
+.calendar .container {
     max-width: 1200px;
     width: 100%;
     margin-bottom: 3rem;
 }
-.calendar .container h1{
+.calendar .container h1 {
     text-align: center;
     margin: 3rem 0;
 }
@@ -220,47 +235,47 @@ main .courses .container .card .card-content p{
     font-size: 14px;
 }
 
-.manage{
+.manage {
     height: 100vh;
     width: 100%;
     display: grid;
     place-items: center;
 }
 
-.manage .back-home{
+.manage .back-home {
     position: absolute;
     top: 20px;
     left: 20px;
 }
 
-.manage h1 a{
+.manage h1 a {
     text-decoration: none;
     color: #333333;
 }
 
-.manage a{
+.manage a {
     text-decoration: none;
     color: #fff;
 }
 
-.manage a:hover{
-    color: #0148BC;
+.manage a:hover {
+    color: #0148bc;
 }
 
-.manage-menu h2{
+.manage-menu h2 {
     color: #fff;
 }
 
-.manage ul{
+.manage ul {
     list-style: none;
     text-decoration: none;
 }
 
-.manage ul li{
+.manage ul li {
     font-size: 1.1rem;
 }
 
-.manage .manage-menu{
+.manage .manage-menu {
     background: rgba(28, 157, 236, 0.9);
     max-width: 500px;
     width: 100%;
@@ -269,18 +284,18 @@ main .courses .container .card .card-content p{
     border-radius: 24px;
 }
 
-.manage .manage-menu h2{
+.manage .manage-menu h2 {
     margin-bottom: 1rem;
 }
 
-.login{
+.login {
     height: 100vh;
     width: 100%;
     display: grid;
     place-items: center;
 }
 
-.login-form{
+.login-form {
     border: 5px solid #1c9dec;
     width: max-content;
     height: max-content;
@@ -288,109 +303,106 @@ main .courses .container .card .card-content p{
     border-radius: 24px;
 }
 
-.login-form h1{
+.login-form h1 {
     margin-bottom: 1rem;
 }
 
-.back{
+.back {
     position: absolute;
     top: 20px;
     left: 20px;
 }
 
-.back a{
+.back a {
     text-decoration: none;
     color: #333;
 }
 
-.back a:hover{
-    color: #0148BC;
+.back a:hover {
+    color: #0148bc;
 }
 
-
-.calendar-edit{
+.calendar-edit {
     width: 100%;
     min-height: 100vh;
     display: grid;
     place-items: center;
-    background: #F0F0F0;
+    background: #f0f0f0;
 }
 
-.calendar-edit .container{
+.calendar-edit .container {
     max-width: 1200px;
     width: 100%;
     margin-bottom: 3rem;
 }
 
-.calendar-edit .container h1{
+.calendar-edit .container h1 {
     text-align: center;
     margin: 3rem 0;
 }
 
-.calendar-edit .container .lesson-plan-edit{
+.calendar-edit .container .lesson-plan-edit {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     place-items: center;
     gap: 3rem;
 }
 
-.calendar-edit .container .lesson-plan-edit a{
+.calendar-edit .container .lesson-plan-edit a {
     text-decoration: none;
     color: #333;
 }
 
-.calendar-edit .container .lesson-plan-edit a:hover{
-    color: #0148BC;
+.calendar-edit .container .lesson-plan-edit a:hover {
+    color: #0148bc;
 }
 
-
-
-.groups-edit{
+.groups-edit {
     width: 100%;
     min-height: 100vh;
     display: grid;
     place-items: center;
-    background: #F0F0F0;
+    background: #f0f0f0;
 }
 
-.groups-edit .container{
+.groups-edit .container {
     max-width: 1200px;
     width: 100%;
     margin-bottom: 3rem;
 }
 
-.groups-edit .container h1{
+.groups-edit .container h1 {
     text-align: center;
     margin: 3rem 0;
 }
 
-.groups-edit .container .groups-card-edit{
+.groups-edit .container .groups-card-edit {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     place-items: center;
     gap: 3rem;
 }
 
-.groups-edit .container .groups-card-edit a{
+.groups-edit .container .groups-card-edit a {
     text-decoration: none;
     color: #333;
 }
 
-.groups-edit .container .groups-card-edit a:hover{
-    color: #0148BC;
+.groups-edit .container .groups-card-edit a:hover {
+    color: #0148bc;
 }
 
-.add{
+.add {
     position: absolute;
     top: 20px;
     right: 50px;
 }
 
-.add a{
+.add a {
     text-decoration: none;
     color: #333;
 }
 
-.add a:hover{
-    color: #0148BC;
+.add a:hover {
+    color: #0148bc;
 }
