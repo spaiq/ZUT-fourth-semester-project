@@ -3,6 +3,7 @@ from django.views.generic import TemplateView
 from rest_framework import generics, permissions, status
 from rest_framework.decorators import throttle_classes, permission_classes
 from rest_framework.throttling import UserRateThrottle, AnonRateThrottle
+from rest_framework.renderers import TemplateHTMLRenderer, JSONRenderer
 from django.contrib.auth.decorators import login_required
 from .models import *
 from .serializers import *
@@ -148,14 +149,15 @@ class LessonView(generics.RetrieveUpdateDestroyAPIView):
     ]
 
 
+@method_decorator(login_required, name="dispatch")
 class GroupView(generics.ListCreateAPIView):
-    template_name = 'manage/groups.html'
     serializer_class = GroupSerializer
     throttle_classes = [AnonRateThrottle, UserRateThrottle]
     permission_classes = [
         permissions.IsAuthenticated,
         IsInstructor | IsManager | permissions.IsAdminUser,
     ]
+    renderer_classes = [TemplateHTMLRenderer]
 
     def get_queryset(self):
         user = self.request.user
@@ -166,8 +168,9 @@ class GroupView(generics.ListCreateAPIView):
 
         return Group.objects.filter(instructor_id=self.request.user)
 
-    # def get(self, request, args, **kwargs):
-    #     return self.list(request, args, **kwargs)
+    def get(self, request, *args, **kwargs):
+        self.queryset = self.get_queryset()
+        return Response({"groups": self.queryset}, template_name="manage/groups.html")
 
 
 @method_decorator(login_required, name="dispatch")
