@@ -1,30 +1,57 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="pl-PL">
-<head>
-    <meta charset="UTF-8">
-    <title>SwimSchool - Manage</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}" />
-    <link href="{% static 'fontawesomefree/css/fontawesome.css' %}" rel="stylesheet" type="text/css">
-    <link href="{% static 'fontawesomefree/css/brands.css' %}" rel="stylesheet" type="text/css">
-    <link href="{% static 'fontawesomefree/css/solid.css' %}" rel="stylesheet" type="text/css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Roboto:wght@100;400;700&display=swap" rel="stylesheet">
-</head>
-<body>
-<div class="manage">
-  <h1 class="back-home"><a href="/swimschool/swimapp/static">Home</a></h1>
-  <div class="manage-menu">
-    <h2>Wybierz co chcesz zrobić:</h2>
-    <ul>
-      <li><a href="/calendar/create">Dodaj lekcję</a></li>
-      <li><a href="/manage/delete-lesson">Usuń lekcję</a></li>
-      <li><a href="/groups">Wyświetl/Dodaj grupę</a></li>
-      <li><a href="">Usuń członka z grupy</a></li>
-      <li><a href="/accounts/logout/" style="color: red;font-weight: bold;">Wyloguj się!</a></li>
-    </ul>
-  </div>
-</div>
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <title>SwimSchool - Manage</title>
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="{% static 'css/styles.css' %}"
+        />
+        <link
+            href="{% static 'fontawesomefree/css/fontawesome.css' %}"
+            rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="{% static 'fontawesomefree/css/brands.css' %}"
+            rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="{% static 'fontawesomefree/css/solid.css' %}"
+            rel="stylesheet"
+            type="text/css"
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Lobster&family=Roboto:wght@100;400;700&display=swap"
+            rel="stylesheet"
+        />
+    </head>
+    <body>
+        <div class="manage">
+            <h1 class="back-home">
+                <a href="/swimschool/swimapp/static">Home</a>
+            </h1>
+            <div class="manage-menu">
+                <h2>Wybierz co chcesz zrobić:</h2>
+                <ul>
+                    <li><a href="/calendar/create">Dodaj lekcję</a></li>
+                    <li><a href="/manage/calendar">Edytuj/Usuń lekcję</a></li>
+                    <li><a href="/groups">Wyświetl/Dodaj grupę</a></li>
+                    <li><a href="/manage/groups">Edytuj/Usuń członka z grupy</a></li>
+                    <li>
+                        <a
+                            href="/accounts/logout/"
+                            style="color: red; font-weight: bold"
+                            >Wyloguj się!</a
+                        >
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </body>
 </html>
