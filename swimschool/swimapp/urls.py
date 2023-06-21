@@ -7,11 +7,10 @@ urlpatterns = [
     path("calendar/", calendar, name="calendar"),
     path("calendar/endpoint/", CalendarView.as_view(), name="calendar-endpoint"),
     path("calendar/create/", LessonCreateView.as_view()),
-    path("calendar/<int:pk>", LessonView.as_view()),
+    path("manage/calendar/", manage_calendar, name="calendar"),
+    path("manage/calendar/<int:pk>", LessonView.as_view()),
     path("contact/", contact, name="contact"),
     path("manage/", manage, name="manage"),
-    path("manage/delete-lesson", delete_lessons, name="delete lesson"),
-    path("manage/delete-lesson/<int:pk>", delete_lesson, name="delete"),
     path("faq/", faq, name="faq"),
     path("instructors/", instructors, name="instructors"),
     path("payments/", PaymentsView.as_view(), name="payments"),
@@ -30,6 +29,6 @@ urlpatterns = [
         SingleBookkeeperView.as_view(),
         name="manage-bookkeepers",
     ),
-    path('accounts/login/', login_view, name='login'),
-    path('accounts/logout/', logout_view, name='logout')
+    path("accounts/login/", login_view, name="login"),
+    path("accounts/logout/", logout_view, name="logout"),
 ]

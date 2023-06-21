@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from rest_framework import generics, permissions, status
-from rest_framework.decorators import throttle_classes
+from rest_framework.decorators import throttle_classes, permission_classes
 from rest_framework.throttling import UserRateThrottle, AnonRateThrottle
 from django.contrib.auth.decorators import login_required
 from .models import *
@@ -40,17 +40,19 @@ def contact(request):
 
 @throttle_classes([AnonRateThrottle, UserRateThrottle])
 @login_required
+@permission_classes([IsManager | IsInstructor | permissions.IsAdminUser])
 def manage(request):
     return render(request, "manage/index.html", {})
 
 
 @throttle_classes([AnonRateThrottle, UserRateThrottle])
 @login_required
-def delete_lessons(request):
+@permission_classes([IsManager | IsInstructor | permissions.IsAdminUser])
+def manage_calendar(request):
     response = requests.get("http://127.0.0.1:8000/calendar/endpoint")
     data = response.json()
     lessons = data["results"]
-    return render(request, "manage/delete-lesson.html", {"lessons": lessons})
+    return render(request, "manage/calendar.html", {"lessons": lessons})
 
 
 @throttle_classes([AnonRateThrottle, UserRateThrottle])
@@ -65,12 +67,6 @@ def calendar(request):
     lessons = data["results"]
     return render(request, "calendar.html", {"lessons": lessons})
 
-
-@api_view(['DELETE'])
-def delete_lesson(request, pk):
-    model = get_object_or_404(Group, pk=pk)
-    model.delete()
-    return Response('Item deleted!')
 
 def login_view(request):
     if request.method == "POST":
