@@ -296,7 +296,6 @@ main .courses .container .card .card-content p{
     position: absolute;
     top: 20px;
     left: 20px;
-    color: red;
 }
 
 .back a{
@@ -378,5 +377,20 @@ main .courses .container .card .card-content p{
 }
 
 .groups-edit .container .groups-card-edit a:hover{
+    color: #0148BC;
+}
+
+.add{
+    position: absolute;
+    top: 20px;
+    right: 50px;
+}
+
+.add a{
+    text-decoration: none;
+    color: #333;
+}
+
+.add a:hover{
     color: #0148BC;
 }

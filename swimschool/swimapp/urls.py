@@ -1,6 +1,5 @@
 from django.urls import path
 from .views import *
-
 urlpatterns = [
     path("", index, name="index"),
     path("about/", about, name="about"),
@@ -10,6 +9,7 @@ urlpatterns = [
     path("manage/calendar/", manage_calendar, name="calendar"),
     path("manage/calendar/<int:pk>", LessonView.as_view()),
     path("groups/", GroupView.as_view(), name="groups"),
+    path("groups/add", AddGroupView.as_view(), name="add_manage_groups"),
     path("manage/groups/", manage_groups, name="manage_groups"),
     path("manage/groups/<int:pk>", SingleGroupView.as_view()),
     path("contact/", contact, name="contact"),
@@ -34,3 +34,4 @@ urlpatterns = [
     path("accounts/login/", login_view, name="login"),
     path("accounts/logout/", logout_view, name="logout"),
 ]
+

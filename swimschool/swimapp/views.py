@@ -174,6 +174,25 @@ class GroupView(generics.ListCreateAPIView):
 
 
 @method_decorator(login_required, name="dispatch")
+class AddGroupView(generics.ListCreateAPIView):
+    serializer_class = GroupSerializer
+    throttle_classes = [AnonRateThrottle, UserRateThrottle]
+    permission_classes = [
+        permissions.IsAuthenticated,
+        IsInstructor | IsManager | permissions.IsAdminUser,
+    ]
+
+    def get_queryset(self):
+        user = self.request.user
+        group = models.Group.objects.filter(user=user).first()
+
+        if group and group.name == "Manager":
+            return Group.objects.all()
+
+        return Group.objects.filter(instructor_id=self.request.user)
+
+
+@method_decorator(login_required, name="dispatch")
 class SingleGroupView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Group.objects.all()
     serializer_class = SingleGroupSerializer
